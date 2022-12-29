@@ -1,7 +1,16 @@
+import path from "path";
 import express from "express";
+import { allowedNodeEnvironmentFlags } from "process";
 
 const app = express();
+const __dirname = path.resolve();
 
-console.log("Hello");
+app.set("view engine", "pug");
+app.set("views", __dirname + "/src/views");
 
-app.listen(3000);
+app.use("/public", express.static(__dirname + "/src/public"));
+app.get("/", (req, res) => res.render("home"));
+app.get("/*", (req, res) => res.redirect("/"));
+
+const handleListen = () => console.log(`Listening on http://localhost:3000`);
+app.listen(3000, handleListen);
