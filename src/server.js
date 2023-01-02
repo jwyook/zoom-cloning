@@ -18,13 +18,19 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+function onSocketClose(message) {
+  console.log("Disconnected from The Browser");
+}
+
+const sockets = [];
+
 wss.on("connection", (socket) => {
+  sockets.push(socket);
   console.log("Connected to Browser");
-  socket.on("close", () => console.log("Disconnected from The Browser"));
+  socket.on("close", onSocketClose);
   socket.on("message", (message) => {
-    console.log(message.toString("utf8"));
+    sockets.forEach((aSocket) => aSocket.send(message.toString("utf8")));
   });
-  socket.send("hello!");
 });
 
 server.listen(3000, handleListen);
