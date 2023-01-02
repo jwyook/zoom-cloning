@@ -1,6 +1,7 @@
+import http from "http";
+import WebSocket from "ws";
 import path from "path";
 import express from "express";
-import { allowedNodeEnvironmentFlags } from "process";
 
 const app = express();
 const __dirname = path.resolve();
@@ -13,4 +14,10 @@ app.get("/", (req, res) => res.render("home"));
 app.get("/*", (req, res) => res.redirect("/"));
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
-app.listen(3000, handleListen);
+// app.listen(3000, handleListen);
+
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({ server });
+
+server.listen(3000, handleListen);
