@@ -24,8 +24,8 @@ wsServer.on("connection", (socket) => {
   socket.on("enter_room", (msg, done) => {
     console.log(msg);
     setTimeout(() => {
-      done();
-    }, 10000);
+      done("Hi!");
+    }, 15000);
   });
 });
 
