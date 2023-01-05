@@ -39,7 +39,7 @@ function showRoom() {
   const msgForm = room.querySelector("#msg");
   const nameForm = room.querySelector("#name");
   msgForm.addEventListener("submit", handleMessageSubmit);
-  nameForm.addEventListener("submit", handleNicknameSubmit);
+  // nameForm.addEventListener("submit", handleNicknameSubmit);
 }
 
 function handleRoomSubmit(event) {
